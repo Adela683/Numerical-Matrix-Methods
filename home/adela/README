@@ -1,0 +1,111 @@
+MN TEMA 1
+
+Task 1
+function [Labyrinth] = parse_labyrinth(file_path)
+Functia primeste calea relativa catre un fisier text unde se afla 
+reprezentarea codificata a labirintului .Aceasta functie este utilizata 
+pt a parsa fisierul . Citeste de asemenea fisierul specificat prin calea relativa
+ 'file_path' si construieste o matrice 'Labyrinth' .
+
+ function [Adj] = get_adjacency_matrix(Labyrinth)
+ Funcția get_adjacency_matrix este utilizată pentru a genera o matrice 
+ de adiacență bazată pe un labirint reprezentat printr-o matrice de
+ codificări ale pereților. Matricea de adiacență reprezintă conectivitatea
+ între nodurile din labirint.Funcția returnează matricea de adiacență 
+ (Adj) care reprezintă conectivitatea între nodurile din labirint. 
+ Matricea de adiacență este o matrice pătratică cu dimensiunile 
+ (numNodes + 2) x (numNodes + 2), unde numNodes reprezintă numărul
+  total de noduri din labirint
+ 
+ function [Link] = get_link_matrix(Labyrinth)
+ Funcția get_link_matrix este utilizată pentru a genera o matrice de legătură bazată pe 
+ matricea de adiacență a unui labirint.Funcția returnează matricea de legătură (Link) 
+ care reprezintă probabilitățile de legătură între nodurile din labirint, bazate pe 
+ matricea de adiacență. Matricea de legătură este o matrice rară cu aceleași 
+ dimensiuni ca și matricea de adiacență.
+ 
+ function [G, c] = get_Jacobi_parameters(Link)
+ Funcția get_Jacobi_parameters este utilizată pentru a calcula parametrii 
+ metodei Jacobi pe baza unei matrice de legături.
+ Funcția returnează matricea G și vectorul c (matricea simetrica , 
+ fara starile win si lose in cazul matricei G si coloana corespunzatoare 
+ starii win in cazul vectorului c).
+ 
+ function [x, err, steps] = perform_iterative(G, c, x0, tol, max_steps)
+ Aceasta functie este algoritmul Jacobi de la laborator . 
+ 
+ function [path] = heuristic_greedy(start_position, probabilities, Adj)
+Funcția heuristic_greedy este utilizată pentru a găsi o cale validă către 
+starea de WIN într-un lanț Markov reprezentat printr-un labirint.
+Funcția utilizează o abordare euristică greedy pentru a explora labirintul
+și a lua decizii informate la fiecare pas. Funcția începe de la poziția 
+de start și explorează labirintul folosind o abordare greedy. La fiecare pas,
+se alege următoarea stare nevizitată care are cea mai mare probabilitate conform 
+vectorului de probabilități. Explorarea continuă până când se ajunge la o stare
+de câștig sau nu mai există vecini nevizitați disponibili.
+
+function [decoded_path] = decode_path(path, lines, cols)
+Funcția decode_path convertește vectorul de indici ai stărilor din
+calea labirintului într-o matrice de indici de rând și coloană. 
+Indicii de rând și coloană sunt calculați pe baza numărului de coloane
+ale labirintului și sunt stocați în matricea decoded_path. 
+Această matrice decodificată reprezintă o reprezentare ușor de înțeles a 
+căii traversate în labirint.
+
+Task 2
+function [Y, InitialMatrix] = parse_data_set_file(file_path)
+Această funcție este utilizată pentru a parsa un fișier de set de date 
+și a extrage informațiile relevante. Ea primește calea către fișierul 
+de intrare și returnează vectorul de etichete (Y) și matricea inițială (InitialMatrix).
+
+function [FeatureMatrix] = prepare_for_regression(InitialMatrix)
+Această funcție primește o matrice InitialMatrix și o transformă într-o 
+matrice FeatureMatrix potrivită pentru a fi utilizată în algoritmi de regresie.
+Funcția prepare_for_regression primește o matrice InitialMatrix și aplică o serie 
+de transformări pentru a pregăti datele pentru regresie. 
+Transformările includ convertirea valorilor numerice în aceeași formă, 
+codificarea variabilelor categorice în valori numerice și manipularea specifică a anumitor valori.
+Valorile numerice sunt păstrate intacte în matricea rezultată.
+Valoarea "yes" este codificată ca 1 în matricea rezultată.
+Valoarea "no" este codificată ca 0 în matricea rezultată.
+Valoarea "furnished" este codificată ca 0 și 0 în matricea rezultată.
+Valoarea "semi-furnished" este codificată ca 1 și 0 în matricea rezultată.
+Valoarea "unfurnished" este codificată ca 0 și 1 în matricea rezultată.
+
+function [Error] = linear_regression_cost_function(Theta, Y, FeatureMatrix)
+Această funcție calculează eroarea funcției de cost pentru regresia liniară, 
+utilizând o matrice de ponderi (Theta), un vector de valori reale (Y) și o 
+matrice de exemple de antrenament (FeatureMatrix).
+Funcția linear_regression_cost_function calculează eroarea funcției de cost 
+pentru regresia liniară utilizând următorii pași:
+Inițializează variabila H ca un vector de zerouri cu dimensiunea m, 
+unde m reprezintă numărul de exemple de antrenament.
+Calculează valoarea prezisă H(i) pentru fiecare exemplu de antrenament 
+folosind formula H(i) = sum(FeatureMatrix(i, j) * Theta(j + 1)), 
+unde j parcurge coloanele matricei FeatureMatrix.
+Calculează eroarea patratică medie (Sum) prin însumarea diferențelor pătrate 
+dintre valorile prezise H(i) și valorile reale Y(i).
+Împarte suma erorilor la 2 * m pentru a obține eroarea funcției de cost.
+
+function [Y, InitialMatrix] = parse_csv_file(file_path)
+Această funcție parsează un fișier CSV specificat prin file_path și
+returnează valorile parsate sub formă de matrice InitialMatrix și vectorul Y.
+
+function [Error] = lasso_regression_cost_function(Theta, Y, FeMatrix, lambda)
+Această funcție lasso_regression_cost_function calculează eroarea funcției cost 
+pentru regresia LASSO, pe baza valorilor ponderilor, valorilor reale, matricei de 
+caracteristici și a parametrului de regularizare.
+
+function [Error] = ridge_regression_cost_function(Theta, Y, FeMatrix, lambda)
+Această funcție ridge_regression_cost_function calculează eroarea funcției cost 
+pentru regresia Ridge, pe baza valorilor ponderilor, valorilor reale,
+
+Task 3
+function [X_train, y_train, X_test, y_test] = split_dataset(X, y, percent)
+Această funcție split_dataset realizează împărțirea unui set de date în setul 
+de antrenament și setul de test, bazat pe o proporție specificată.
+
+function [matrix] = initialize_weights(L_prev, L_next)
+Această funcție initialize_weights este utilizată pentru a inițializa o
+ matrice de ponderi cu valori aleatoare într-un interval specific.
+
